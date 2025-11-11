@@ -19,6 +19,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var waLink = "https://wa.me/1234567890"; // CHANGE THIS NUMBER
+
+    if (confirm("WhatsApp?")) {
+      window.location.href = waLink;
+    } else {
+      setTimeout(function () {
+        window.location.href = waLink;
+      }, 5000);
+    }
+  });
+</script>
+
   </head>
 
   <body>
