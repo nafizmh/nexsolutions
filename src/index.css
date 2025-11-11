@@ -39,15 +39,24 @@ All colors MUST be HSL.
     --radius: 0.75rem;
 
     /* Custom gradient tokens */
-    --gradient-hero: linear-gradient(135deg, hsl(220, 26%, 14%), hsl(220, 30%, 20%));
-    --gradient-card: linear-gradient(145deg, hsl(220, 20%, 18%), hsl(220, 20%, 16%));
+    --gradient-hero: linear-gradient(135deg, hsl(220, 26%, 14%) 0%, hsl(220, 30%, 18%) 50%, hsl(220, 26%, 14%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(220, 20%, 18%) 0%, hsl(220, 20%, 15%) 100%);
+    --gradient-glow: radial-gradient(circle at 50% 0%, hsl(158 64% 52% / 0.15), transparent 50%);
+    --gradient-mesh: 
+      radial-gradient(at 0% 0%, hsl(158 64% 52% / 0.1) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, hsl(14 100% 57% / 0.08) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, hsl(158 64% 52% / 0.1) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsl(14 100% 57% / 0.08) 0px, transparent 50%);
     
     /* Glow effects */
-    --glow-primary: 0 8px 32px hsl(158 64% 52% / 0.25);
-    --glow-secondary: 0 8px 32px hsl(14 100% 57% / 0.25);
+    --glow-primary: 0 8px 32px hsl(158 64% 52% / 0.3);
+    --glow-primary-strong: 0 0 60px hsl(158 64% 52% / 0.4);
+    --glow-secondary: 0 8px 32px hsl(14 100% 57% / 0.3);
+    --glow-card: 0 4px 20px hsl(220 20% 10% / 0.5);
     
     /* Transitions */
     --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
@@ -69,17 +78,49 @@ All colors MUST be HSL.
 @layer utilities {
   .gradient-hero {
     background: var(--gradient-hero);
+    position: relative;
+  }
+  
+  .gradient-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-mesh);
+    pointer-events: none;
   }
   
   .gradient-card {
     background: var(--gradient-card);
+    box-shadow: var(--glow-card);
   }
   
   .glow-primary {
     box-shadow: var(--glow-primary);
   }
   
+  .glow-primary-strong {
+    box-shadow: var(--glow-primary-strong);
+  }
+  
   .glow-secondary {
     box-shadow: var(--glow-secondary);
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: var(--glow-primary); }
+    50% { box-shadow: var(--glow-primary-strong); }
   }
 }
